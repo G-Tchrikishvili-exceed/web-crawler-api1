@@ -45,7 +45,10 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(router);
-app.use('/', healthCheck);
+app.get('/', async (req, res) => {
+  console.log('@@@HEALTHCHECK'); 
+  res.status(200).send('ok');
+});
 app.use('/page-content', pageContent);
 
 /// catch 404 and forwarding to error handler
