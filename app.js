@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const DB_URL =
-  'mongodb+srv://BACHI:restart987@cluster0-ylbzb.mongodb.net/test?retryWrites=true&w=majority';
+  mongodb+srv:chrika:ka9L[p}x@exceed.tvvd1.mongodb.net/<dbname>?retryWrites=true&w=majority;
 
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
