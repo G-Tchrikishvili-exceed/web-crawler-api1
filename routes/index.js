@@ -7,6 +7,7 @@ router.get('/', function (req, res) {
     title: 'WEB CRAWLER API',
     description: 'you can use this urls:',
   });
+  res.status(200).send('health_CHECK is ok');
 });
 
 module.exports = router;
