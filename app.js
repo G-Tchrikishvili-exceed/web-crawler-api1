@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var cors = require('cors');
-
+const router = express.Router();
 const healthCheck = require('./routes');
 const pageContent = require('./routes/pageContent');
 
@@ -44,7 +44,7 @@ app.use(logger('dev'));
 // app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(router);
 app.use('/', healthCheck);
 app.use('/page-content', pageContent);
 
