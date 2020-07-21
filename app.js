@@ -12,6 +12,10 @@ const pageContent = require('./routes/pageContent');
 
 const app = express();
 
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 const DB_URL =
   'mongodb+srv://chrika:ka9L[p}x@exceed.tvvd1.mongodb.net/<dbname>?retryWrites=true&w=majority';
 
@@ -36,8 +40,8 @@ app.set('view engine', 'jade');
 app.use(favicon());
 app.use(logger('dev'));
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
