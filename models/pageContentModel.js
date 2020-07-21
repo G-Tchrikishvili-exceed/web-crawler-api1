@@ -6,7 +6,7 @@ var crawledSchema = new Schema({
   h1: Array,
   h2: Array,
   h3: Array,
-  link: Array,
+  links: Array,
   date_crawled: Date,
 });
 
