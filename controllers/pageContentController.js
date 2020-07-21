@@ -8,7 +8,11 @@ const getAllPageURLs = () => {};
 const getPageContentByID = () => {};
 
 const CrawlUrl = async (url) => {
-  return await scrapperService.parsePage(url);
+  try {
+    return await scrapperService.parsePage(url);
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {

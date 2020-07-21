@@ -37,10 +37,14 @@ const tagsGenerator = ($, tagType) => {
 };
 
 const parsePage = async (url) => {
-  const response = await got(url);
-  const { body } = await response;
-  const crawledResults = await getURLLinks(body);
-  return crawledResults;
+  try {
+    const response = await got(url);
+    const { body } = await response;
+    const crawledResults = await getURLLinks(body);
+    return crawledResults;
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {
