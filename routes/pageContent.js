@@ -34,7 +34,7 @@ router.get('/all-crawled', async (req, res) => {
     const crawledItems = await crawledModel.find();
     res.send({ crawledItems });
   } catch (error) {
-    res.send({ code: 'error', error });
+    res.status(500).send({ code: 'error', error });
   }
 });
 
