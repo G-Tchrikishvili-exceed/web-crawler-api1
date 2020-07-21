@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const DB_URL =
-  'mongodb+srv:chrika:ka9L[p}x@exceed.tvvd1.mongodb.net/<dbname>?retryWrites=true&w=majority';
+  'mongodb+srv://chrika:ka9L[p}x@exceed.tvvd1.mongodb.net/<dbname>?retryWrites=true&w=majority';
 
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
@@ -39,14 +39,13 @@ app.set('view engine', 'jade');
 
 app.use(favicon());
 app.use(logger('dev'));
-
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded());
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(router);
 app.get('/', async (req, res) => {
-  console.log('@@@HEALTHCHECK'); 
+  console.log('@@@HEALTHCHECK');
   res.status(200).send('ok');
 });
 app.use('/page-content', pageContent);
@@ -91,6 +90,5 @@ var server = app.listen(app.get('port'), function () {
   debug('Express server listening on port ' + server.address().port);
   console.log('server is up and working correctly');
 });
-
 
 // module.exports = app;

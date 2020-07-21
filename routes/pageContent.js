@@ -22,6 +22,7 @@ router.get('/', async (req, res) => {
   await crawledItem.save();
 
   try {
+    console.log(saveit);
     res.status(200).send({ result: crawledItem });
   } catch (error) {
     res.send(error);
