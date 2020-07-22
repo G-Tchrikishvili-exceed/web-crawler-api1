@@ -6,15 +6,10 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var cors = require('cors');
-const router = express.Router();
 const healthCheck = require('./routes');
 const pageContent = require('./routes/pageContent');
 
 const app = express();
-
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 const DB_URL =
   'mongodb+srv://chrika:ka9L[p}x@exceed.tvvd1.mongodb.net/<dbname>?retryWrites=true&w=majority';
@@ -48,7 +43,7 @@ app.get('/', async (req, res) => {
   console.log('@@@HEALTHCHECK');
   res.status(200).send('ok');
 });
-app.use('/page-content', pageContent);
+app.use('/crawler-api', pageContent);
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {

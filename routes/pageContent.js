@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const pageContentController = require('../controllers/pageContentController');
+const scrapperService = require('./../services/scrapperService');
 const model = require('./../models/pageContentModel');
 const crawledModel = model.crawled;
 /* GET URLs listing. */
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const { url } = req.query;
-    const content = await pageContentController.CrawlUrl(url);
+    const { url } = req.body;
+    const content = await scrapperService.parsePage(url);
     const { h1, h2, h3, links } = content;
     const saveit = {
       url,
@@ -22,14 +22,13 @@ router.get('/', async (req, res) => {
 
     await crawledItem.save();
 
-    console.log(saveit);
     res.status(200).send({ result: crawledItem });
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-router.get('/all-crawled', async (req, res) => {
+router.get('/get-all', async (req, res) => {
   try {
     const crawledItems = await crawledModel.find();
     res.send({ crawledItems });
