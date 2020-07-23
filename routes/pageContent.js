@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
 
     await crawledItem.save();
 
-    res.status(200).send({ result: crawledItem });
+    res.status(200).send(crawledItem);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
 router.get('/get-all', async (req, res) => {
   try {
     const crawledItems = await crawledModel.find();
-    res.send({ crawledItems });
+    res.status(200).send(crawledItems);
   } catch (error) {
     res.status(500).send({ code: 'error', error });
   }
