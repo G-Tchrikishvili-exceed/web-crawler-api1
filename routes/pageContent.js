@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
     const { url } = req.body;
     const content = await scrapperService.parsePage(url);
     const { h1, h2, h3, links } = content;
-    const saveit = {
+    const saveit = {  //bad naming. variables should be named as nouns
       url,
       h1,
       h2,
@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/get-all', async (req, res) => {
+router.get('/get-all', async (req, res) => { //bad route naming    https://restfulapi.net/resource-naming/
   try {
     const crawledItems = await crawledModel.find();
     res.status(200).send(crawledItems);

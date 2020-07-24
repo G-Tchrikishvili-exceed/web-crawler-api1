@@ -1,13 +1,13 @@
-const PageContent = require('../models/pageContentModel');
+const PageContent = require('../models/pageContentModel'); // not used variable
 const scrapperService = require('./../services/scrapperService');
 
-const savePageContent = () => {};
+const savePageContent = () => {}; // unnecessary code
 
-const getAllPageURLs = () => {};
+const getAllPageURLs = () => {}; // unnecessary code
 
-const getPageContentByID = () => {};
+const getPageContentByID = () => {}; // unnecessary code
 
-const CrawlUrl = async (url) => {
+const CrawlUrl = async (url) => { // bad naming (starts from the upperCase letter)
   try {
     return await scrapperService.parsePage(url);
   } catch (error) {

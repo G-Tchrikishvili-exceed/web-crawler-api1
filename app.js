@@ -5,14 +5,14 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-var cors = require('cors');
-const healthCheck = require('./routes');
+var cors = require('cors');  //var is deprecated, use let/const insted
+const healthCheck = require('./routes');  // not used variable
 const pageContent = require('./routes/pageContent');
 
 const app = express();
 
 const DB_URL =
-  'mongodb+srv://chrika:ka9L[p}x@exceed.tvvd1.mongodb.net/<dbname>?retryWrites=true&w=majority';
+  'mongodb+srv://chrika:ka9L[p}x@exceed.tvvd1.mongodb.net/<dbname>?retryWrites=true&w=majority'; //all `app variables` should be stored in process.env (so db ul as well)
 
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
@@ -40,14 +40,14 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', async (req, res) => {
-  console.log('@@@HEALTHCHECK');
+  console.log('@@@HEALTHCHECK'); // unnecessary console.log
   res.status(200).send('ok');
 });
 app.use('/crawler-api', pageContent);
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error('Not Found'); //var is deprecated, use let/const insted
   err.status = 404;
   next(err);
 });
@@ -76,14 +76,14 @@ app.use(function (err, req, res, next) {
   });
 });
 
-var debug = require('debug')('my-application');
-// var app = require('../app');
+var debug = require('debug')('my-application'); //var is deprecated, use let/const insted
+// var app = require('../app');  //// unnecessary comment
 
 app.set('port', process.env.PORT || 5000);
-console.log('@@@@@@hi from www');
-var server = app.listen(app.get('port'), function () {
+console.log('@@@@@@hi from www'); // unnecessary console.log
+var server = app.listen(app.get('port'), function () { //var is deprecated, use let/const insted
   debug('Express server listening on port ' + server.address().port);
   console.log('server is up and working correctly');
 });
 
-// module.exports = app;
+// module.exports = app; //// unnecessary comment

@@ -23,14 +23,15 @@ const getURLLinks = async (body) => {
   result.h1 = tagsGenerator($, 'h1');
   result.h2 = tagsGenerator($, 'h2');
   result.h3 = tagsGenerator($, 'h3');
+  //here ^^^  we can use looping method to create the result
   return result;
 };
 
-const tagsGenerator = ($, tagType) => {
+const tagsGenerator = ($, tagType) => {  //bad naming. functions should be called as verbs  $ - bad argument naming
   const tagarray = [];
   const tags = $(tagType);
 
-  tags.map((_, element) => {
+  tags.map((_, element) => {  // why do you use map method and then push to another array? => tagarray = tags.map()
     tagarray.push($(element).text());
   });
   return tagarray;
@@ -39,7 +40,7 @@ const tagsGenerator = ($, tagType) => {
 const parsePage = async (url) => {
   try {
     const response = await got(url);
-    const { body } = await response;
+    const { body } = await response; // do we need `await` here?
     const crawledResults = await getURLLinks(body);
     return crawledResults;
   } catch (error) {
