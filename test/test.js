@@ -3,18 +3,33 @@ const chai = require('chai');
 const axios = require('axios');
 const { expect } = chai;
 const should = chai.should();
-// const productMockData = require('./mockdata/product.json');
-// const { product, updateProduct } = productMockData;
-const url = 'https://en.wikipedia.org/wiki/Main_Page';
+
+const url =
+  'https://jsmanifest.com/7-reasons-higher-order-functions-can-improve-your-life/';
+
 describe('get crawled items', () => {
   it('GET /crawler-api/get-all', async () => {
     const response = await axios.get(
       `${process.env.API_URL}crawler-api/get-all`
     );
-    expect(response.status).to.equal(200);
-    response.data.should.be.an(`array`);
-    // response.data.should.have.property(`crawledItems`);
-    console.log(response.data);
+
+    const { data, status } = response;
+
+    expect(status).to.equal(200);
+
+    data.should.be.an(`array`);
+
+    if (data.length) {
+      data.forEach((item) => {
+        item.h1.should.be.an('array');
+        item.h2.should.be.an('array');
+        item.h3.should.be.an('array');
+        item.links.should.be.an('array');
+        item._id.should.be.an('string').that.is.not.empty;
+        item.url.should.be.an('string').that.is.not.empty;
+        item.date_crawled.should.be.an('string').that.is.not.empty;
+      });
+    }
   });
 });
 
@@ -27,10 +42,13 @@ describe('add cralwled item in db and get this item', () => {
       },
       { timeout: 10000 }
     );
-    expect(response.status).to.equal(200);
-    response.data.should.be.an(`object`);
-    response.data.should.have
-      .property(`result`)
+
+    const { data, status } = response;
+
+    expect(status).to.equal(200);
+
+    data.should.be
+      .an(`object`)
       .that.is.not.empty.and.has.property(
         'h1',
         'h2',
@@ -40,8 +58,12 @@ describe('add cralwled item in db and get this item', () => {
         'url',
         'date_crawled'
       );
-    // Object.values(response.data.result).map((key) => {
-    //   key.should.be.an('array');
-    // });
+    data.h1.should.be.an('array');
+    data.h2.should.be.an('array');
+    data.h3.should.be.an('array');
+    data.links.should.be.an('array');
+    data._id.should.be.an('string').that.is.not.empty;
+    data.url.should.be.an('string').that.is.not.empty;
+    data.date_crawled.should.be.an('string').that.is.not.empty;
   });
 });
