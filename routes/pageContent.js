@@ -9,16 +9,17 @@ router.post('/', async (req, res) => {
     const { url } = req.body;
     const content = await scrapperService.parsePage(url);
     const { h1, h2, h3, links } = content;
-    const saveit = {  //bad naming. variables should be named as nouns
+
+    const item = {
       url,
       h1,
       h2,
       h3,
       links,
-      date_crawled: new Date(),
+      created_at: new Date(),
     };
 
-    const crawledItem = new crawledModel(saveit);
+    const crawledItem = new crawledModel(item);
 
     await crawledItem.save();
 
@@ -28,7 +29,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/get-all', async (req, res) => { //bad route naming    https://restfulapi.net/resource-naming/
+router.get('/all', async (req, res) => {
   try {
     const crawledItems = await crawledModel.find();
     res.status(200).send(crawledItems);

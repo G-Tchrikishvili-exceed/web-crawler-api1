@@ -5,16 +5,13 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-var cors = require('cors');  //var is deprecated, use let/const insted
-const healthCheck = require('./routes');  // not used variable
+const cors = require('cors');
 const pageContent = require('./routes/pageContent');
+require('dotenv').config();
 
 const app = express();
 
-const DB_URL =
-  'mongodb+srv://chrika:ka9L[p}x@exceed.tvvd1.mongodb.net/<dbname>?retryWrites=true&w=majority'; //all `app variables` should be stored in process.env (so db ul as well)
-
-mongoose.connect(DB_URL, {
+mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -40,14 +37,13 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', async (req, res) => {
-  console.log('@@@HEALTHCHECK'); // unnecessary console.log
   res.status(200).send('ok');
 });
 app.use('/crawler-api', pageContent);
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {
-  var err = new Error('Not Found'); //var is deprecated, use let/const insted
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -76,14 +72,10 @@ app.use(function (err, req, res, next) {
   });
 });
 
-var debug = require('debug')('my-application'); //var is deprecated, use let/const insted
-// var app = require('../app');  //// unnecessary comment
+const debug = require('debug')('my-application');
 
 app.set('port', process.env.PORT || 5000);
-console.log('@@@@@@hi from www'); // unnecessary console.log
-var server = app.listen(app.get('port'), function () { //var is deprecated, use let/const insted
+const server = app.listen(app.get('port'), function () {
   debug('Express server listening on port ' + server.address().port);
   console.log('server is up and working correctly');
 });
-
-// module.exports = app; //// unnecessary comment
